@@ -7,10 +7,10 @@ import javax.persistence.*;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -24,9 +24,12 @@ public class Day {
     @Column(unique = true)
     private OffsetDateTime date;
 
-    @JoinColumn
+    @JoinTable(name = "day_habit",
+            joinColumns = @JoinColumn(name = "day_fk", unique = true),
+            inverseJoinColumns = @JoinColumn(name = "habit_fk", unique = true)
+    )
     @ManyToMany
-    private List<Habit> habits;
+    private Set<Habit> habits;
 
     @Override
     public boolean equals(Object o) {

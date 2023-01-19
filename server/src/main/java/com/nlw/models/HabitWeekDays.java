@@ -4,12 +4,10 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
-
+@Builder
 @Getter
 @Setter
-@RequiredArgsConstructor
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -20,12 +18,12 @@ public class HabitWeekDays {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany
-    @JoinColumn(name = "habit_id", unique = true)
-    private List<Habit> habit;
-
     @Column(unique = true)
     private int week_day;
+
+    public HabitWeekDays(int week_day) {
+        this.week_day = week_day;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -5,11 +5,13 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
+@Builder
 @Getter
 @Setter
-@RequiredArgsConstructor
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -25,6 +27,18 @@ public class Habit {
 
     @Column(nullable = false)
     private OffsetDateTime created_ad;
+
+    @ManyToMany(mappedBy = "habits")
+    Set<Day> days;
+
+    @JoinColumn(name = "habit_id", unique = true)
+    @OneToMany
+    private List<HabitWeekDays> habitWeekDays;
+
+    public Habit(String title, OffsetDateTime created_ad) {
+        this.title = title;
+        this.created_ad = created_ad;
+    }
 
     @Override
     public boolean equals(Object o) {
