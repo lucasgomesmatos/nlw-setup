@@ -35,10 +35,6 @@ public class Habit {
     @OneToMany
     private List<HabitWeekDays> habitWeekDays;
 
-    public Habit(String title, OffsetDateTime created_ad) {
-        this.title = title;
-        this.created_ad = created_ad;
-    }
 
     @Override
     public boolean equals(Object o) {

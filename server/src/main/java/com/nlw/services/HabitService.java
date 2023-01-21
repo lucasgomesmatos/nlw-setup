@@ -32,21 +32,23 @@ public class HabitService {
     @Transactional
     public Habit salvar(HabitDto habitDto) {
 
-        List<HabitWeekDays> listhabitWeekDay = new ArrayList<>();
+        List<HabitWeekDays> habitWeekDaysList = new ArrayList<>();
 
         for (int i = 0; i < habitDto.getHabitWeekDays().size(); i++) {
-            var habitWeekDay = new HabitWeekDays(i);
-            listhabitWeekDay.add(habitWeekDaysRepository.save(habitWeekDay));
+            HabitWeekDays habitWeekDays = new HabitWeekDays(i);
+
+            habitWeekDaysRepository.save(habitWeekDays);
+            habitWeekDaysList.add(habitWeekDays);
         }
 
-        var habit = Habit.builder()
+        System.out.println(habitWeekDaysList);
+
+        Habit habit = Habit.builder()
                 .title(habitDto.getTitle())
                 .created_ad(OffsetDateTime.now())
-                .habitWeekDays(listhabitWeekDay.get().getWeek_day())
                 .build();
 
-        var newHabit = habitRepository.save(habit);
-
+        habitRepository.save(habit);
 
 
         return habit;
