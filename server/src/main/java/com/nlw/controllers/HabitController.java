@@ -1,5 +1,6 @@
 package com.nlw.controllers;
 
+import com.nlw.dtos.HabitCreateDto;
 import com.nlw.dtos.HabitDto;
 import com.nlw.models.Habit;
 import com.nlw.services.HabitService;
@@ -18,20 +19,27 @@ public class HabitController {
     @Autowired
     private HabitService habitService;
 
-    @PostMapping
-    public ResponseEntity<Habit> salvar(@RequestBody @Valid HabitDto habitDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(habitService.salvar(habitDto));
-    }
-
     @GetMapping
-    public ResponseEntity<List<Habit>> listar() {
-        return ResponseEntity.status(HttpStatus.OK).body(habitService.listar());
+    public ResponseEntity<List<HabitDto>> listar() {
+        return ResponseEntity.status(HttpStatus.OK).body(habitService.listarHabits());
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Habit> atualizar(
-            @RequestBody @Valid HabitDto habitDto,
-            @PathVariable(value = "id") Long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(habitService.atualizar(habitDto, id));
+    @GetMapping("{id}")
+    public ResponseEntity<HabitDto> listar(@Valid @PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(habitService.obterHabitsPorId(id));
     }
+
+    @PostMapping
+    public ResponseEntity<HabitDto> salvarHabit(@RequestBody @Valid HabitCreateDto habitCreateDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(habitService.salvarHabit(habitCreateDto));
+    }
+
+
+//
+//    @PutMapping("/{id}")
+//    public ResponseEntity<Habit> atualizar(
+//            @RequestBody @Valid HabitDto habitDto,
+//            @PathVariable(value = "id") Long id) {
+//        return ResponseEntity.status(HttpStatus.OK).body(habitService.atualizar(habitDto, id));
+//    }
 }

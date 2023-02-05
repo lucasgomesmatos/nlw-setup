@@ -5,9 +5,7 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Builder
 @Getter
@@ -28,12 +26,9 @@ public class Habit {
     @Column(nullable = false)
     private OffsetDateTime created_ad;
 
-    @ManyToMany(mappedBy = "habits")
-    Set<Day> days;
-
-    @JoinColumn(name = "habit_id", unique = true)
+    @JoinColumn(name = "habit_id")
     @OneToMany
-    private List<HabitWeekDays> habitWeekDays;
+    private List<HabitWeekDays> habitWeekDays = new ArrayList<>();
 
 
     @Override

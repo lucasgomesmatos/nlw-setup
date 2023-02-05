@@ -18,12 +18,8 @@ public class HabitWeekDays {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
     private int week_day;
 
-    public HabitWeekDays(int week_day) {
-        this.week_day = week_day;
-    }
 
     @Override
     public boolean equals(Object o) {

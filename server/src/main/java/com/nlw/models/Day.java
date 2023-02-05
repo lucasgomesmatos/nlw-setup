@@ -5,6 +5,7 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -24,12 +25,12 @@ public class Day {
     @Column(unique = true)
     private OffsetDateTime date;
 
-    @JoinTable(name = "day_habit",
-            joinColumns = @JoinColumn(name = "day_fk", unique = true),
-            inverseJoinColumns = @JoinColumn(name = "habit_fk", unique = true)
+    @JoinTable(name = "tb_day_habit",
+            joinColumns = @JoinColumn(name = "day_fk"),
+            inverseJoinColumns = @JoinColumn(name = "habit_fk")
     )
     @ManyToMany
-    private Set<Habit> habits;
+    private Set<Habit> habits = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
